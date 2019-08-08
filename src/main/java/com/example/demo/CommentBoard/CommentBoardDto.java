@@ -14,6 +14,8 @@ import javax.persistence.Column;
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CommentBoardDto {
+    @Column(name = "boardId")
+    private Long boardId;
     @Column(name = "boardContent")
     private String boardContent;
 }

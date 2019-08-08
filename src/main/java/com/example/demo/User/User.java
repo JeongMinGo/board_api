@@ -1,9 +1,6 @@
 package com.example.demo.User;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "userId")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

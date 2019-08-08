@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -22,6 +21,4 @@ public class BoardDto {
     @NotEmpty @Length(min=1,max=100)
     private String boardContent;
     private String boardWriter;
-    private LocalDateTime boardDate;
-    private Long hit;
 }

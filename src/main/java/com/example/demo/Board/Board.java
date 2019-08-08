@@ -1,12 +1,10 @@
 package com.example.demo.Board;
 
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +16,8 @@ import java.time.LocalDateTime;
 @Setter
 @Table(name = "board")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "boardId")
 public class Board implements Serializable {
     @Id
@@ -30,8 +30,9 @@ public class Board implements Serializable {
     @Column(name = "boardWriter")
     private String boardWriter;
     @CreatedDate
-    @Convert(converter = DateConvert.class)  // <- @Converter를 지정 해줘야 한다.
+//    @Convert(converter = DateConvert.class)  // <- @Converter를 지정 해줘야 한다.
     @Column(name = "created_at", updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime createdDateTime;
     @Column(name="hit")
     @ColumnDefault("0")

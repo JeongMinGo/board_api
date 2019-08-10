@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>가입하기</title>
+    <script src="https://kit.fontawesome.com/15f814a076.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#submit").click(function() {
+                var email = $("#userName").val();
+                var email = $("#userName").val();
+
+                var result = re.test(email);
+                if(!result) {
+                    alert('이메일이 아니에요');
+                    return;
+                }
+                var contentId = $("#contentId").val();
+                var data = {
+                    email: email
+                };
+                $.ajax({
+                    url: `/`,
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        alert(result.message);
+                        location.href=`/pilot/${contentId}`;
+                    }
+                });
+            });
+        });
+
+        // $.ajax({
+        //     type: 'POST',
+        //     url: '/user',
+        //     data: '{"name":"jonas"}', // or JSON.stringify ({name: 'jonas'}),
+        //     success: function(data) { alert('data: ' + data); },
+        //     contentType: "application/json",
+        //     dataType: 'json'
+        // });
+    </script>
+<body>
+
+<div class="login-box">
+    <h1>Join</h1>
+    <br>
+    <input name="userName" id="userName">
+
+    <button id="submit"></button>
+    <input class="btn" type="submit" name="" value="가입하기">
+    <br>
+    <br>
+    <a href="/">홈으로</a>
+</div>
+</body>
+</head>
+<body>
+<form>
+
+</form>
+</body>
+</html>

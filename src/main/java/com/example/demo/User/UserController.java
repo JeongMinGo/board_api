@@ -54,8 +54,8 @@ public class UserController {
         else {
             return ResponseEntity.status(200).body(user);
         }
-
     }
+
     @PutMapping("{userId}")
     public ResponseEntity update(@RequestBody @Valid UserUpdateDto userUpdateDto, @PathVariable("userId") long userId, Errors errors){
         if(errors.hasErrors()) {
@@ -71,10 +71,6 @@ public class UserController {
         return ResponseEntity.status(200).body(user);
 
     }
-
-
-
-
 }
 
 //회원가입

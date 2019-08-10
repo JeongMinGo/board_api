@@ -3,11 +3,13 @@ package com.example.demo.Board;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -29,11 +31,10 @@ public class Board implements Serializable {
     private String boardContent;
     @Column(name = "boardWriter")
     private String boardWriter;
-    @CreatedDate
 //    @Convert(converter = DateConvert.class)  // <- @Converter를 지정 해줘야 한다.
     @Column(name = "created_at", updatable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime createdDateTime;
+    @CreationTimestamp
+    private Timestamp createdDateTime;
     @Column(name="hit")
     @ColumnDefault("0")
     private Long hit;

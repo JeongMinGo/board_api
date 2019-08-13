@@ -16,10 +16,10 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class UserDto {
-    @NotEmpty @Length(min = 3,max = 10)
+    @Length(min = 3,max = 10)
     private String userName;
     @Email @Length(min = 1, max = 50)
     private String userEmail;
-    @NotEmpty @Length(min = 10, max = 30)
+    @Length(min = 10, max = 30)
     private String userPassword;
 }

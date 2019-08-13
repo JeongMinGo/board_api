@@ -23,8 +23,12 @@ public class UserController {
         if(errors.hasErrors()) {
             return ResponseEntity.badRequest().body(errors);
         }
-        User user = modelMapper.map(userDto, User.class);
+        User user = modelMapper.map(userDto,User.class);
         User newUser = userRepository.save(user);
+
+        System.out.println(newUser.getUserName());
+        System.out.println(newUser.getUserEmail());
+        System.out.println(newUser.getUserPassword());
 
         return ResponseEntity.status(201).body(newUser);
     }
@@ -46,8 +50,9 @@ public class UserController {
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().body(errors);
         }
+        System.out.println(userLoginDto.getUserEmail());
+        System.out.println(userLoginDto.getUserPassword());
         User user = userRepository.findByUserIdAndUserPassword(userLoginDto.getUserEmail(),userLoginDto.getUserPassword());
-
         if(user==null) {
             return ResponseEntity.status(404).body("User not found");
         }
@@ -55,6 +60,14 @@ public class UserController {
             return ResponseEntity.status(200).body(user);
         }
     }
+
+
+//    회원정보 list로 뽑아내는 구간
+//    @GetMapping("/userlist")
+//    public ResponseEntity userlist(){
+//        return ResponseEntity.ok().body(userRepository.findAll());
+//    }
+
 
     @PutMapping("{userId}")
     public ResponseEntity update(@RequestBody @Valid UserUpdateDto userUpdateDto, @PathVariable("userId") long userId, Errors errors){

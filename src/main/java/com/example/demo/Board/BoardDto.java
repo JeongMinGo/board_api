@@ -20,5 +20,5 @@ public class BoardDto {
     private String boardTitle;
     @NotEmpty @Length(min=1,max=100)
     private String boardContent;
-    private String boardWriter;
+    private String boardWriter="짱구";
 }

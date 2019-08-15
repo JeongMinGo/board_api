@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+</head>
+
+<script>
+    $(document).ready(() => {
+            var title= $("#boardTitle").val();
+            var email = $("#userEmail").val();
+            var data = {
+                region: region,
+                locale: locale
+            };
+            alert(region);
+            alert(locale);
+            $.ajax({
+                url: `/hearthstone/cards`,
+                type: 'GET',
+                data: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                dataType: 'json',
+                success: function(result) {
+                    alert(result.message);
+                    location.href=`/index`;
+                }
+            });
+    });
+</script>
+<body>
+<th:block th:if="${session.!=null}">
+    <th:block th:each="board:${session.hiphopList}">
+        <tr>
+            <td><span th:text="${board.getId()}"></span></td>
+            <td><a th:onclick="|javascript:getPost('${board.getId()}')|" th:text="${board.getTitle()}"></a></td>
+            <td><span th:text="${board.getWriter()}"></span></td>
+
+        </tr>
+    </th:block>
+</th:block>
+</body>
+</html>

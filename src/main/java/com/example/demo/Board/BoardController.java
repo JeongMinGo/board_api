@@ -1,6 +1,9 @@
 package com.example.demo.Board;
 
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
@@ -68,6 +71,22 @@ public class BoardController {
         }
         Board board= boardRepository.findById(boardId).get();
         return ResponseEntity.status(200).body(board);
+    }
+    @GetMapping(value = "/api")
+    public ResponseEntity allCard(){
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://omgvamp-hearthstone-v1.p.rapidapi.com/cards")
+                .get()
+                .addHeader("x-rapidapi-host", "omgvamp-hearthstone-v1.p.rapidapi.com")
+                .addHeader("x-rapidapi-key", "cda38e27d1mshc10a87a7c67d89bp104aa8jsn859181f2bea2")
+                .build();
+        try{
+              Response response = client.newCall(request).execute();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 //Post --> "create" 리소스를 생성합니다

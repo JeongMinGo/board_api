@@ -20,4 +20,9 @@ public class HomeController {
     public String join(){
        return "join";
     }
+
+    @GetMapping(value="/board")
+    public String board(){
+        return "board";
+    }
 }

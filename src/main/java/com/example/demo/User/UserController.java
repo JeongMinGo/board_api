@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -14,9 +15,11 @@ import java.util.Optional;
 public class UserController {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
-    public UserController(ModelMapper modelMapper, UserRepository userRepository) {
+    private final HttpSession session;
+    public UserController(ModelMapper modelMapper, UserRepository userRepository, HttpSession session) {
         this.modelMapper=modelMapper;
         this.userRepository=userRepository;
+        this.session=session;
     }
     @PostMapping //회원가입
     public ResponseEntity join(@RequestBody @Valid UserDto userDto, Errors errors) {
@@ -45,18 +48,19 @@ public class UserController {
         return ResponseEntity.status(200).body(updatedUser);
     }
 
-    @GetMapping
-    public ResponseEntity login(@RequestBody @Valid UserLoginDto userLoginDto, Errors errors){
+    @PostMapping(value = "/login")
+    public ResponseEntity login(@RequestBody @Valid UserLoginDto userLoginDto, Errors errors, HttpSession session){
         if(errors.hasErrors()){
             return ResponseEntity.badRequest().body(errors);
         }
         System.out.println(userLoginDto.getUserEmail());
         System.out.println(userLoginDto.getUserPassword());
-        User user = userRepository.findByUserIdAndUserPassword(userLoginDto.getUserEmail(),userLoginDto.getUserPassword());
+        User user = userRepository.findUserByUserEmailAndUserPassword(userLoginDto.getUserEmail(),userLoginDto.getUserPassword());
         if(user==null) {
             return ResponseEntity.status(404).body("User not found");
         }
         else {
+            session.setAttribute("loginUser",user);
             return ResponseEntity.status(200).body(user);
         }
     }

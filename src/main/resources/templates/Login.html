@@ -23,8 +23,8 @@
                 alert(email);
                 alert(password);
                 $.ajax({
-                    url: `http://localhost:8080/user`,
-                    type: 'GET',
+                    url: `http://localhost:8080/user/login`,
+                    type: 'POST',
                     data: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json"

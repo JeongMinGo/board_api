@@ -1,9 +1,10 @@
 package com.example.demo.Board;
 
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
@@ -64,16 +65,16 @@ public class BoardController {
     }
 
     //클릭시 세부정도 보여주기 클릭시 해당되는 boardId값을 가져와서 보여준다.
-    @GetMapping("{boardId}")
-    public ResponseEntity info(@PathVariable("boardId") long boardId, Errors errors){
-        if(errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(errors);
-        }
-        Board board= boardRepository.findById(boardId).get();
-        return ResponseEntity.status(200).body(board);
-    }
+//    @GetMapping("{boardId}")
+//    public ResponseEntity info(@PathVariable("boardId") long boardId, Errors errors){
+//        if(errors.hasErrors()) {
+//            return ResponseEntity.badRequest().body(errors);
+//        }
+//        Board board= boardRepository.findById(boardId).get();
+//        return ResponseEntity.status(200).body(board);
+//    }
     @GetMapping(value = "/api")
-    public ResponseEntity allCard(){
+    public ResponseEntity allCard() throws Exception{
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -82,11 +83,25 @@ public class BoardController {
                 .addHeader("x-rapidapi-host", "omgvamp-hearthstone-v1.p.rapidapi.com")
                 .addHeader("x-rapidapi-key", "cda38e27d1mshc10a87a7c67d89bp104aa8jsn859181f2bea2")
                 .build();
-        try{
-              Response response = client.newCall(request).execute();
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+
+        Response response = client.newCall(request).execute();
+        System.out.println("done");
+        return ResponseEntity.ok().body(response.body().string());
+    }
+    @GetMapping(value = "/api/{cardId}")
+    public ResponseEntity Info(@PathVariable String cardId) throws Exception{
+        OkHttpClient client = new OkHttpClient();
+        String requestUrl = "https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/"+cardId;
+
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .get()
+                .addHeader("x-rapidapi-host", "omgvamp-hearthstone-v1.p.rapidapi.com")
+                .addHeader("x-rapidapi-key", "cda38e27d1mshc10a87a7c67d89bp104aa8jsn859181f2bea2")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return ResponseEntity.ok().body(response.body().string());
     }
 }
 //Post --> "create" 리소스를 생성합니다

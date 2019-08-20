@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <style>
 	html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	.w3-sidebar {
@@ -79,7 +80,10 @@
 		</div>
 	</div>
 	<p id="jsonText"></p>
-	<div id="test">
+	<div class="list">
+
+	</div>
+	<div id="info">
 
 	</div>
 </div>
@@ -107,9 +111,33 @@
 		mySidebar.style.display = "none";
 		overlayBg.style.display = "none";
 	}
+
+	function button_onclick(cardId){
+		$.ajax({
+			url: `http://localhost:8080/board/api/${cardId}`,
+			type: 'GET',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			dataType: 'json',
+			success: function (result) {
+				$(".list").hide();
+				var $div = $(`<div class="cardInfo">${JSON.stringify(result)}</div><br><div onclick="backStep()">뒤로가기</div><br>`);
+				var div=document.createElement('div');
+				var text=document.createTextNode('Hello');
+				div.appendChild(text);
+				$div.appendTo('#info');
+			}
+		});
+	}
+	function backStep() {
+		$(".cardInfo").remove();
+		// $(".backStep").remove();
+		$(".list").show();
+	}
 	$(document).ready(() => {
 		$.ajax({
-			url: `http://localhost:8080/board/api`,
+			url: `http://localhost:8080/board/api/`,
 			type: 'GET',
 			headers: {
 				"Content-Type": "application/json"
@@ -117,17 +145,16 @@
 			dataType: 'json',
 			success: function(result) {
 				for(const item of result.Classic){
-					var $div = $(`<div><button></button><a href="/board?cardId=${item.cardId}">${JSON.stringify(item)}</a></div><br>`);
+					var $div = $(`<div onclick="button_onclick('${item.cardId}')">${JSON.stringify(item)}</div><br>`);
 					var div=document.createElement('div');
 					var text=document.createTextNode('Hello');
 					div.appendChild(text);
-					$("#test").append($div);
+					$(".list").append($div);
 				}
-				$div.appendTo($('#test'));
+				$div.appendTo($('.list'));
 			}
 		});
 	});
-
 </script>
 
 </body>

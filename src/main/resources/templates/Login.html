@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,7 @@
                 alert(email);
                 alert(password);
                 $.ajax({
-                    url: `http://localhost:8080/user/login`,
+                    url: `http://52.78.173.234/user/login`,
                     type: 'POST',
                     data: JSON.stringify(data),
                     headers: {
@@ -37,10 +38,10 @@
                 });
             });
         });
-
-
     </script>
+
 <body>
+
     <div class="login-box">
         <h1>Login</h1>
         <br>

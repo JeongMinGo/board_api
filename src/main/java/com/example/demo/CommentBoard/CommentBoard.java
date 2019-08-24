@@ -3,18 +3,11 @@ package com.example.demo.CommentBoard;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
 @Table(name="commentBoard")
 @Builder
 @NoArgsConstructor
@@ -37,4 +30,60 @@ public class CommentBoard implements Serializable {
     private Timestamp createdDateTime;
     @UpdateTimestamp
     private Timestamp updatedDateTime;
+
+    public void setCommentBoardContent(String commentBoardContent) {
+        this.commentBoardContent = commentBoardContent;
+    }
+
+    public void setBoardId(Long boardId) {
+        this.boardId = boardId;
+    }
+
+    public void setCommentBoardWriter(String commentBoardWriter) {
+        CommentBoardWriter = commentBoardWriter;
+    }
+
+    public void setCommentId(Long commentId) {
+        this.commentId = commentId;
+    }
+
+    public void setCreatedDateTime(Timestamp createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public void setUpdatedDateTime(Timestamp updatedDateTime) {
+        this.updatedDateTime = updatedDateTime;
+    }
+
+    public Long getBoardId() {
+        return boardId;
+    }
+
+    public Long getCommentId() {
+        return commentId;
+    }
+
+    public String getCommentBoardContent() {
+        return commentBoardContent;
+    }
+
+    public String getCommentBoardWriter() {
+        return CommentBoardWriter;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public Timestamp getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public Timestamp getUpdatedDateTime() {
+        return updatedDateTime;
+    }
 }

@@ -44,7 +44,7 @@ public class BoardController {
             return ResponseEntity.status(404).body("Board not found");
         }
         Board updateBoard = board.get();
-        updateBoard.setIsDeleted(true);
+        updateBoard.setDeleted(true);
         boardRepository.save(updateBoard);
         return ResponseEntity.status(200).body(updateBoard);
     }

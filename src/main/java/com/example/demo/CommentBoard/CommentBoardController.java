@@ -38,7 +38,7 @@ public class CommentBoardController {
             return ResponseEntity.badRequest().body("CommentBoard not found");
         }
         CommentBoard updateCommentBoard=commentBoard.get();
-        updateCommentBoard.setIsDeleted(true);
+        updateCommentBoard.setDeleted(true);
         commentBoardRepository.save(updateCommentBoard);
         return ResponseEntity.status(200).body(updateCommentBoard);
     }

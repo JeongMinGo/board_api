@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Getter
-@Setter
 @Table(name = "board")
 @Builder
 @AllArgsConstructor
@@ -41,4 +39,60 @@ public class Board implements Serializable {
     //isDeleted or Deleted 둘중에서 오류 하나 날수 도 있음  Swagger에서 결과값 가져올때 오류있을시 수정 요망
     @Column(name="isDeleted")//몽고 디비로 사용했을 때 isDeleted가 이미 존재해서 오류남
     private Boolean isDeleted;
+
+    public Long getBoardId() {
+        return boardId;
+    }
+
+    public String getBoardTitle() {
+        return boardTitle;
+    }
+
+    public String getBoardContent() {
+        return boardContent;
+    }
+
+    public String getBoardWriter() {
+        return boardWriter;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public Timestamp getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public Long getHit() {
+        return hit;
+    }
+
+    public void setBoardId(Long boardId) {
+        this.boardId = boardId;
+    }
+
+    public void setBoardTitle(String boardTitle) {
+        this.boardTitle = boardTitle;
+    }
+
+    public void setBoardContent(String boardContent) {
+        this.boardContent = boardContent;
+    }
+
+    public void setBoardWriter(String boardWriter) {
+        this.boardWriter = boardWriter;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public void setCreatedDateTime(Timestamp createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public void setHit(Long hit) {
+        this.hit = hit;
+    }
 }

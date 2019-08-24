@@ -13,7 +13,7 @@ public class HomeController {
 
     @GetMapping(value = "/")
     public String login(){
-        return "login";
+        return "Login";
     }
 
     @GetMapping(value = "/join")

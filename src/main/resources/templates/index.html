@@ -30,7 +30,7 @@
 		<a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
 		<a href="#" class="w3-bar-item w3-button w3-theme-l1">HearthStone</a>
 		<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">하스스톤 덱 공유</a>
-		<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">만든 개발자</a>
+		<a href="#" onclick="backStep();" class="w3-bar-item w3-button w3-hide-small w3-hover-white">뒤로가기</a>
 	</div>
 </div>
 
@@ -66,23 +66,27 @@
 <!--	</div>-->
 
 	<!-- Pagination -->
-	<div class="w3-center w3-padding-32">
+	<table>
+		<thead>
+		<tr>
+			<th>cardId</th>
+			<th>dbfld</th>
+			<th>name</th>
+			<th>cardSet</th>
+			<th>type</th>
+			<th>text</th>
+			<th>playerClass</th>
+			<th>mechanics</th>
+		</tr>
+		</thead>
+		<tbody class="list">
+		</tbody>
+	</table>
 
-		<button type="button" onclick="location.href='/board'">덱 만들기</button>
-
-		<div class="w3-bar">
-			<a class="w3-button w3-black" href="#">1</a>
-			<a class="w3-button w3-hover-black" href="#">2</a>
-			<a class="w3-button w3-hover-black" href="#">3</a>
-			<a class="w3-button w3-hover-black" href="#">4</a>
-			<a class="w3-button w3-hover-black" href="#">5</a>
-			<a class="w3-button w3-hover-black" href="#">»</a>
-		</div>
-	</div>
 	<p id="jsonText"></p>
-	<div class="list">
+<!--	<div class="list">-->
 
-	</div>
+<!--	</div>-->
 	<div id="info">
 
 	</div>
@@ -114,7 +118,7 @@
 
 	function button_onclick(cardId){
 		$.ajax({
-			url: `http://localhost:8080/board/api/${cardId}`,
+			url: `http://52.78.173.234/board/api/${cardId}`,
 			type: 'GET',
 			headers: {
 				"Content-Type": "application/json"
@@ -122,7 +126,7 @@
 			dataType: 'json',
 			success: function (result) {
 				$(".list").hide();
-				var $div = $(`<div class="cardInfo">${JSON.stringify(result)}</div><br><div onclick="backStep()">뒤로가기</div><br>`);
+				var $div = $(`<div class="cardInfo">${JSON.stringify(result)}</div><br>`);
 				var div=document.createElement('div');
 				var text=document.createTextNode('Hello');
 				div.appendChild(text);
@@ -137,7 +141,7 @@
 	}
 	$(document).ready(() => {
 		$.ajax({
-			url: `http://localhost:8080/board/api/`,
+			url: `http://52.78.173.234/board/api/`,
 			type: 'GET',
 			headers: {
 				"Content-Type": "application/json"
@@ -145,7 +149,9 @@
 			dataType: 'json',
 			success: function(result) {
 				for(const item of result.Classic){
-					var $div = $(`<div onclick="button_onclick('${item.cardId}')">${JSON.stringify(item)}</div><br>`);
+					// var $div = $(`<div onclick="button_onclick('${item.cardId}')">${JSON.stringify(item)}</div><br>`);
+					var $div = $(`<tr><td onclick="button_onclick('${item.cardId}')">${item.cardId}</td><td>${item.dbfId}</td><td>${item.name}</td><td>${item.cardSet}</td><td>${item.type}</td><td>${item.text}</td><td>${item.playerClass}</td><td>${item.mechanics}</td></tr>`);
+
 					var div=document.createElement('div');
 					var text=document.createTextNode('Hello');
 					div.appendChild(text);

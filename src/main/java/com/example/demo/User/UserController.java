@@ -43,7 +43,7 @@ public class UserController {
             return ResponseEntity.status(404).body("User not found");
         }
         User updatedUser = user.get();
-        updatedUser.setIsDeleted(true);
+        updatedUser.setDeleted(true);
         userRepository.save(updatedUser);
         return ResponseEntity.status(200).body(updatedUser);
     }

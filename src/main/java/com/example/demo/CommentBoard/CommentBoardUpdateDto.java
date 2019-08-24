@@ -9,11 +9,18 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 
 @Builder
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CommentBoardUpdateDto {
     @Column(name = "boardContent")
     private String boardContent;
+
+    public void setBoardContent(String boardContent) {
+        this.boardContent = boardContent;
+    }
+
+    public String getBoardContent() {
+        return boardContent;
+    }
 }
